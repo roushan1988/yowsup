@@ -1,5 +1,5 @@
 from yowsup.stacks import YowStack
-from .layer import EchoLayer
+from .layer import ReadLayer
 from yowsup.layers import YowLayerEvent
 from yowsup.layers.auth                        import YowCryptLayer, YowAuthenticationProtocolLayer, AuthError
 from yowsup.layers.coder                       import YowCoderLayer
@@ -19,7 +19,7 @@ class YowsupReadStack(object):
         if encryptionEnabled:
             from yowsup.layers.axolotl                     import YowAxolotlLayer
             layers = (
-                EchoLayer,
+                ReadLayer,
                 YowParallelLayer([YowAuthenticationProtocolLayer, YowMessagesProtocolLayer, YowReceiptProtocolLayer, YowAckProtocolLayer, YowMediaProtocolLayer, YowIqProtocolLayer, YowCallsProtocolLayer]),
                 YowAxolotlLayer,
                 YowLoggerLayer,
@@ -30,7 +30,7 @@ class YowsupReadStack(object):
             )
         else:
             layers = (
-                EchoLayer,
+                ReadLayer,
                 YowParallelLayer([YowAuthenticationProtocolLayer, YowMessagesProtocolLayer, YowReceiptProtocolLayer, YowAckProtocolLayer, YowMediaProtocolLayer, YowIqProtocolLayer, YowCallsProtocolLayer]),
                 YowLoggerLayer,
                 YowCoderLayer,
